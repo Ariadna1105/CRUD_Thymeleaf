@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-bs-theme=dark xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Supplier</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-dark p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">
+            <img src="/img/hogar.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-white fs-5" aria-current="page"  th:href="@{/tienda/}">Home</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white fs-5" th:href="@{/tienda/list}">List</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white fs-5" th:href="@{/tienda/form-insert}">Register new</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <h1 class=" text-center p-4">Update Supplier</h1>
+    <div class="container text-center" style="max-width: 600px">
+        <!--        vale aqui laruta latenias bien pero puedes usar esta que es mass sencilla-->
+        <form th:action="@{/tienda/Update}" th:object="${updates}" method="POST">
+            <!-- Agregar un campo oculto para enviar el ID -->
+            <input type="hidden" th:field="*{id}" />
+            <!-- Agrega th:field a cada campo del formulario -->
+            <div class="mb-3">
+                <label for="inputName" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <label for="inputLastName" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="inputLastName" th:field="*{lastName}" placeholder="Enter your Last Name">
+            </div>
+            <div class="mb-3">
+                <label for="inputPhone" class="form-label">Phone Number:</label>
+                <input type="tel" class="form-control" id="inputPhone" th:field="*{telephone}" placeholder="Enter your phone number">
+            </div>
+            <div class="mb-3">
+                <label for="inputEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail" th:field="*{mail}" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="inputCountry" class="form-label">Country</label>
+                <input type="text" class="form-control" id="inputCountry" th:field="*{country}" placeholder="Enter your country">
+            </div>
+            <div class="mb-3">
+                <label for="inputType" class="form-label">Type</label>
+                <select class="form-select" id="inputType" onchange="toggleOtherInput(this)" th:field="*{type}">
+                    <option value="0" selected>Open this select menu</option>
+                    <option value="Food">Food</option>
+                    <option value="Services">Services</option>
+                    <option value="Technology">Technology</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="mb-3 d-none" id="otherInputContainer">
+                <label for="otherInput" class="form-label">Other</label>
+                <input type="text" class="form-control" id="otherInput" th:field="*{type}" placeholder="Enter other type">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+
+</main>
+
+<script>
+    function toggleOtherInput(selectElement) {
+        var otherInputContainer = document.getElementById("otherInputContainer");
+        var otherInput = document.getElementById("otherInput");
+
+        if (selectElement.value === "other") {
+            otherInputContainer.classList.remove("d-none");
+        } else {
+            otherInputContainer.classList.add("d-none");
+            otherInput.value = "";
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
